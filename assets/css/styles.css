@@ -1357,14 +1357,13 @@ html[data-theme="dark"] .city-point {
   }
 
   .floating-actions {
-    right: 14px;
-    left: 14px;
-    bottom: 14px;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    right: 16px !important;
+    left: auto !important;
+    bottom: 16px !important;
   }
 
   .floating-actions a {
-    width: 100%;
+    width: auto;
   }
 }
 
