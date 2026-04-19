@@ -10,11 +10,8 @@
     pl.innerHTML = `
       <div class="preloader-logo">
         <div class="preloader-ring"></div>
-        <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M82 16C57 16 36 37 36 62V112" stroke="#B30000" stroke-width="10" stroke-linecap="round"/>
-          <path d="M92 32C69 32 50 51 50 74V112" stroke="#B30000" stroke-width="10" stroke-linecap="round"/>
-          <path d="M80 40C64 40 52 52 52 68C52 84 64 96 80 96" stroke="#8A8A8A" stroke-width="10" stroke-linecap="round"/>
-        </svg>
+        <div class="preloader-ring-inner"></div>
+        <img src="assets/images/branding/logo-mark.svg" alt="CRESCENT CONSTRUCTION logo">
       </div>
       <div class="preloader-name">CRESCENT <span>CONSTRUCTION</span></div>
       <div class="preloader-tagline">Building Tomorrow With Strength &amp; Precision</div>
