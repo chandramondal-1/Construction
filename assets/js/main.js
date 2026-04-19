@@ -1,34 +1,6 @@
 (function () {
   const data = window.SITE_DATA;
 
-  /* ===== PREMIUM PRELOADER — runs immediately on script load ===== */
-  (function initPreloader() {
-    if (document.getElementById("site-preloader")) return;
-
-    const pl = document.createElement("div");
-    pl.id = "site-preloader";
-    pl.innerHTML = `
-      <div class="preloader-logo">
-        <div class="preloader-ring"></div>
-        <div class="preloader-ring-inner"></div>
-        <img src="assets/images/branding/logo-mark.svg" alt="CRESCENT CONSTRUCTION logo">
-      </div>
-      <div class="preloader-name">CRESCENT <span>CONSTRUCTION</span></div>
-      <div class="preloader-tagline">Building Tomorrow With Strength &amp; Precision</div>
-      <div class="preloader-bar"><div class="preloader-bar-fill"></div></div>
-    `;
-
-    // Insert as first child of body (or document element if body not ready)
-    const target = document.body || document.documentElement;
-    target.insertBefore(pl, target.firstChild);
-
-    // Dismiss after 2.5s (animations complete by ~2.4s)
-    setTimeout(function () {
-      pl.classList.add("hide");
-      setTimeout(function () { pl.remove(); }, 800);
-    }, 2500);
-  })();
-
   function qs(selector, scope = document) {
     return scope.querySelector(selector);
   }
