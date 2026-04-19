@@ -1048,64 +1048,117 @@ html[data-theme="dark"] .city-point {
   border-top: 1px solid var(--border);
 }
 
+/* ===== PREMIUM FLOATING CONTACT BUTTONS ===== */
 .floating-actions {
   position: fixed !important;
-  right: 25px !important;
-  bottom: 25px !important;
-  z-index: 99999 !important;
+  right: 24px !important;
+  bottom: 30px !important;
+  left: auto !important;
+  z-index: 999999 !important;
   display: flex !important;
   flex-direction: column;
-  gap: 15px;
+  gap: 14px;
   pointer-events: auto;
+  align-items: flex-end;
 }
 
 .floating-btn {
-  width: 55px;
-  height: 55px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px 0 0;
+  height: 54px;
+  border-radius: 50px;
+  cursor: pointer;
+  position: relative;
+  text-decoration: none;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.3px;
+  overflow: hidden;
+  transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 6px 28px rgba(0,0,0,0.35);
+  border: none;
+  white-space: nowrap;
+}
+
+.floating-btn .fb-icon {
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  cursor: pointer;
+  flex-shrink: 0;
   position: relative;
 }
 
-.floating-btn svg {
-  width: 26px;
-  height: 26px;
+.floating-btn .fb-icon svg {
+  width: 24px;
+  height: 24px;
   stroke: #fff;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  position: relative;
+  z-index: 1;
 }
 
+.floating-btn .fb-label {
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-left: 2px;
+  transition: opacity 0.3s ease, max-width 0.4s ease;
+  max-width: 120px;
+  opacity: 1;
+}
+
+/* Call Button */
 .call-btn {
-  background: var(--brand-red);
+  background: linear-gradient(135deg, #c0392b, #8B0000);
 }
 
+.call-btn .fb-icon {
+  background: rgba(0,0,0,0.2);
+}
+
+/* WhatsApp Button */
 .wa-btn {
-  background: #25D366; /* Official WhatsApp Green */
+  background: linear-gradient(135deg, #25D366, #128C7E);
 }
 
+.wa-btn .fb-icon {
+  background: rgba(0,0,0,0.15);
+}
+
+/* Hover Effects */
 .floating-btn:hover {
-  transform: scale(1.1) translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+  transform: scale(1.06) translateY(-3px);
+  box-shadow: 0 14px 40px rgba(0,0,0,0.5);
 }
 
-.floating-btn::after {
+/* Pulse Ring Animation */
+.floating-btn .fb-icon::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: 50%;
   background: inherit;
-  z-index: -1;
-  opacity: 0.5;
-  animation: pulseIcon 2s infinite;
+  animation: premiumPulse 2.5s ease-out infinite;
+  z-index: 0;
+  background: rgba(255,255,255,0.25);
 }
 
-@keyframes pulseIcon {
-  0% { transform: scale(1); opacity: 0.5; }
-  100% { transform: scale(1.5); opacity: 0; }
+@keyframes premiumPulse {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  70%  { transform: scale(1.6); opacity: 0; }
+  100% { transform: scale(1.6); opacity: 0; }
 }
+
 
 .lightbox {
   position: fixed;
