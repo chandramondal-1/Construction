@@ -2133,3 +2133,295 @@ html[data-theme="dark"] .pill {
 #site-footer .footer-base {
   border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
+
+/* ============================================
+   PREMIUM MICRO-ANIMATION SYSTEM (81–90)
+   ============================================ */
+
+/* 81. Skeleton Loading Shimmer */
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: #1a1a1a;
+  border-radius: var(--radius-sm);
+  min-height: 200px;
+}
+
+.skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 40%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 60%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmerSlide 1.8s ease-in-out infinite;
+}
+
+@keyframes shimmerSlide {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-text {
+  height: 14px;
+  border-radius: 6px;
+  background: #1a1a1a;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.skeleton-text::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent);
+  background-size: 200% 100%;
+  animation: shimmerSlide 1.8s ease-in-out infinite;
+}
+
+.skeleton-text:last-child {
+  width: 60%;
+}
+
+/* 82. Lazy Image Fade-In */
+img[data-src],
+img.lazy-img {
+  opacity: 0;
+  transform: scale(0.98);
+  transition: opacity 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+              transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+img[data-src].loaded,
+img.lazy-img.loaded {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 84. Hover Scale on Images */
+.project-image img,
+.spotlight-media img,
+.plan-grid img,
+.machine-image img,
+.gallery-grid img {
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.project-image:hover img,
+.spotlight-media:hover img,
+.plan-grid a:hover img,
+.machine-card:hover .machine-image img,
+.gallery-grid a:hover img {
+  transform: scale(1.03);
+}
+
+/* 85. Input Label Float Animation */
+.form-group-float {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.form-group-float input,
+.form-group-float textarea {
+  width: 100%;
+  padding: 18px 16px 8px;
+  background: #161616;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-sm);
+  color: #fff;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group-float label {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #777;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.form-group-float textarea ~ label {
+  top: 20px;
+  transform: none;
+}
+
+.form-group-float input:focus ~ label,
+.form-group-float input:not(:placeholder-shown) ~ label,
+.form-group-float textarea:focus ~ label,
+.form-group-float textarea:not(:placeholder-shown) ~ label {
+  top: 6px;
+  transform: none;
+  font-size: 0.72rem;
+  color: var(--brand-gold);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.form-group-float input:focus,
+.form-group-float textarea:focus {
+  border-color: var(--brand-red);
+  box-shadow: 0 0 0 4px rgba(143, 2, 2, 0.15);
+  outline: none;
+}
+
+/* 86. Dropdown Menu Fade + Slide */
+.dropdown-menu {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.dropdown:hover .dropdown-menu,
+.dropdown.open .dropdown-menu {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* 87. Tooltip Micro Fade */
+[data-tooltip] {
+  position: relative;
+  cursor: pointer;
+}
+
+[data-tooltip]::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  padding: 8px 14px;
+  background: #222;
+  color: #fff;
+  font-size: 0.78rem;
+  border-radius: 8px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 100;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+}
+
+[data-tooltip]::after {
+  content: "";
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: #222;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  z-index: 100;
+}
+
+[data-tooltip]:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+[data-tooltip]:hover::after {
+  opacity: 1;
+}
+
+/* 88. Notification Toast Slide-In */
+.toast {
+  position: fixed;
+  bottom: 100px;
+  right: 30px;
+  z-index: 999998;
+  background: #161616;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-left: 4px solid var(--brand-gold);
+  border-radius: var(--radius-sm);
+  padding: 18px 28px;
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  transform: translateX(120%);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+              opacity 0.5s ease;
+  max-width: 350px;
+}
+
+.toast.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.toast.success {
+  border-left-color: #25D366;
+}
+
+.toast.error {
+  border-left-color: #e74c3c;
+}
+
+.toast-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #777;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+
+/* 89. Mobile Tap Feedback */
+@media (hover: none) and (pointer: coarse) {
+  .btn,
+  .btn-outline,
+  .btn-secondary,
+  .btn-premium,
+  .btn-outline-premium,
+  .floating-btn {
+    transition: transform 0.15s ease;
+  }
+
+  .btn:active,
+  .btn-outline:active,
+  .btn-secondary:active,
+  .btn-premium:active,
+  .btn-outline-premium:active,
+  .floating-btn:active {
+    transform: scale(0.94) !important;
+  }
+}
+
+/* 90. Error Shake Animation */
+@keyframes fieldShake {
+  0%, 100% { transform: translateX(0); }
+  10%, 50%, 90% { transform: translateX(-6px); }
+  30%, 70% { transform: translateX(6px); }
+}
+
+.field-error {
+  animation: fieldShake 0.5s ease;
+  border-color: #e74c3c !important;
+  box-shadow: 0 0 0 4px rgba(231, 76, 60, 0.15) !important;
+}
+
+/* Smooth Anchor Scroll Override */
+html {
+  scroll-behavior: smooth;
+}

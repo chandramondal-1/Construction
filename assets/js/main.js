@@ -705,6 +705,111 @@
     });
   }
 
+  /* 82. Lazy Image Fade-In with IntersectionObserver */
+  function initLazyImages() {
+    const lazyImages = qsa("img[data-src]");
+    if (!lazyImages.length) return;
+
+    const imgObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src;
+            img.removeAttribute("data-src");
+            img.addEventListener("load", () => img.classList.add("loaded"), { once: true });
+            imgObserver.unobserve(img);
+          }
+        });
+      },
+      { rootMargin: "100px" }
+    );
+
+    lazyImages.forEach((img) => imgObserver.observe(img));
+
+    // Also fade-in already-loaded images
+    qsa("img:not([data-src])").forEach((img) => {
+      if (img.complete) {
+        img.classList.add("loaded");
+      } else {
+        img.addEventListener("load", () => img.classList.add("loaded"), { once: true });
+      }
+    });
+  }
+
+  /* 83. Smooth Anchor Scroll (JS enhancement for precision) */
+  function initSmoothScroll() {
+    document.addEventListener("click", (e) => {
+      const link = e.target.closest('a[href^="#"]');
+      if (!link) return;
+      const hash = link.getAttribute("href");
+      if (!hash || hash === "#") return;
+      const target = qs(hash);
+      if (!target) return;
+      e.preventDefault();
+      const navHeight = qs(".navbar-shell")?.offsetHeight || 70;
+      const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 20;
+      window.scrollTo({ top, behavior: "smooth" });
+      history.pushState(null, "", hash);
+    });
+  }
+
+  /* 88. Toast Notification System */
+  function showToast(message, type = "success", duration = 4000) {
+    // Remove existing toast
+    const existing = qs(".toast");
+    if (existing) existing.remove();
+
+    const toast = document.createElement("div");
+    toast.className = `toast ${type}`;
+    toast.innerHTML = `
+      <button class="toast-close" aria-label="Close">&times;</button>
+      <span>${message}</span>
+    `;
+    document.body.appendChild(toast);
+
+    // Trigger animation
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        toast.classList.add("show");
+      });
+    });
+
+    // Auto-dismiss
+    const timer = setTimeout(() => {
+      toast.classList.remove("show");
+      setTimeout(() => toast.remove(), 500);
+    }, duration);
+
+    // Manual close
+    qs(".toast-close", toast).addEventListener("click", () => {
+      clearTimeout(timer);
+      toast.classList.remove("show");
+      setTimeout(() => toast.remove(), 500);
+    });
+  }
+
+  /* 90. Form Error Shake */
+  function shakeField(field) {
+    field.classList.add("field-error");
+    field.addEventListener("animationend", () => {
+      field.classList.remove("field-error");
+    }, { once: true });
+  }
+
+  /* Enhanced Form Validation with Shake + Toast */
+  function initFormValidation() {
+    qsa("[data-mail-form]").forEach((form) => {
+      const inputs = qsa("input[required], textarea[required], select[required]", form);
+      inputs.forEach((input) => {
+        input.addEventListener("invalid", (e) => {
+          e.preventDefault();
+          shakeField(input);
+        });
+      });
+    });
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     // Logo Micro Pulse
     const brandImg = qs(".brand img");
@@ -734,5 +839,8 @@
     initLightbox();
     initRipple();
     initReveal();
+    initLazyImages();
+    initSmoothScroll();
+    initFormValidation();
   });
 })();
