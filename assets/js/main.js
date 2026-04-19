@@ -1,6 +1,37 @@
 (function () {
   const data = window.SITE_DATA;
 
+  /* ===== PREMIUM PRELOADER — runs immediately on script load ===== */
+  (function initPreloader() {
+    if (document.getElementById("site-preloader")) return;
+
+    const pl = document.createElement("div");
+    pl.id = "site-preloader";
+    pl.innerHTML = `
+      <div class="preloader-logo">
+        <div class="preloader-ring"></div>
+        <svg viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M82 16C57 16 36 37 36 62V112" stroke="#B30000" stroke-width="10" stroke-linecap="round"/>
+          <path d="M92 32C69 32 50 51 50 74V112" stroke="#B30000" stroke-width="10" stroke-linecap="round"/>
+          <path d="M80 40C64 40 52 52 52 68C52 84 64 96 80 96" stroke="#8A8A8A" stroke-width="10" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="preloader-name">CRESCENT <span>CONSTRUCTION</span></div>
+      <div class="preloader-tagline">Building Tomorrow With Strength &amp; Precision</div>
+      <div class="preloader-bar"><div class="preloader-bar-fill"></div></div>
+    `;
+
+    // Insert as first child of body (or document element if body not ready)
+    const target = document.body || document.documentElement;
+    target.insertBefore(pl, target.firstChild);
+
+    // Dismiss after 2.5s (animations complete by ~2.4s)
+    setTimeout(function () {
+      pl.classList.add("hide");
+      setTimeout(function () { pl.remove(); }, 800);
+    }, 2500);
+  })();
+
   function qs(selector, scope = document) {
     return scope.querySelector(selector);
   }
